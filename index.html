@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Aluno - SGE</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-hover: #1d4ed8;
+            --secondary-color: #64748b;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --success-color: #10b981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Cabeçalho */
+        header {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-icon {
+            background-color: var(--primary-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .logo-text h1 {
+            font-size: 1.1rem;
+            color: var(--text-main);
+        }
+
+        .logo-text span {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background-color: #cbd5e1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: #475569;
+        }
+
+        .user-info p {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .user-info span {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* Conteúdo Principal */
+        main {
+            flex: 1;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .welcome-banner {
+            margin-bottom: 2rem;
+        }
+
+        .welcome-banner h2 {
+            font-size: 1.5rem;
+            color: var(--text-main);
+            margin-bottom: 0.25rem;
+        }
+
+        .welcome-banner p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Grid de Eventos */
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .event-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .event-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        }
+
+        .event-header {
+            padding: 1.25rem 1.25rem 0.75rem 1.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .event-tag {
+            background-color: #eff6ff;
+            color: var(--primary-color);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .event-date {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .event-body {
+            padding: 0 1.25rem 1.25rem 1.25rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .event-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+
+        .event-description {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .event-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            font-size: 0.8rem;
+            color: var(--secondary-color);
+            margin-bottom: 1.25rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 0.75rem;
+        }
+
+        .btn-subscribe {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            text-align: center;
+        }
+
+        .btn-subscribe:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            padding: 1.25rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Responsividade */
+        @media (max-width: 600px) {
+            header {
+                padding: 1rem;
+            }
+            main {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <header>
+        <div class="logo-area">
+            <div class="logo-icon">SGE</div>
+            <div class="logo-text">
+                <h1>Portal do Aluno</h1>
+                <span>Gestão de Eventos Escolares</span>
+            </div>
+        </div>
+        <div class="user-profile">
+            <div class="user-avatar">JS</div>
+            <div class="user-info">
+                <p>Gabriel Martauro Carvalho</p>
+                <span>Técnico em Desenvolvimento</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main>
+        <div class="welcome-banner">
+            <h2>Olá, Gabriel! Bem-vindo de volta.</h2>
+            <p>Confira abaixo as palestras e oficinas abertas para inscrição nesta semana.</p>
+        </div>
+
+        <h3 class="section-title">📅 Próximos Eventos Disponíveis</h3>
+
+        <div class="events-grid">
+            <!-- Card de Evento 1 -->
+            <div class="event-card">
+                <div class="event-header">
+                    <span class="event-tag">Palestra</span>
+                    <span class="event-date">18 Out • 19:00</span>
+                </div>
+                <div class="event-body">
+                    <div>
+                        <h4 class="event-title">Inteligência Artificial no Desenvolvimento de Software</h4>
+                        <p class="event-description">Descubra como ferramentas modernas e modelos generativos estão transformando o fluxo de trabalho dos programadores.</p>
+                        <div class="event-meta">
+                            <span>📍 Auditório Principal</span>
+                            <span>👤 Prof. Carlos Eduardo</span>
+                            <span>⚡ Vagas restantes: 12</span>
+                        </div>
+                    </div>
+                    <button class="btn-subscribe">Inscrever-se</button>
+                </div>
+            </div>
+
+            <!-- Card de Evento 2 -->
+            <div class="event-card">
+                <div class="event-header">
+                    <span class="event-tag">Oficina</span>
+                    <span class="event-date">20 Out • 14:00</span>
+                </div>
+                <div class="event-body">
+                    <div>
+                        <h4 class="event-title">Introdução ao Docker e Containers</h4>
+                        <p class="event-description">Aprenda a empacotar, distribuir e executar aplicações de forma isolada e padronizada utilizando ambientes Docker.</p>
+                        <div class="event-meta">
+                            <span>📍 Laboratório de Informática 03</span>
+                            <span>👤 Profa. Ana Souza</span>
+                            <span>⚡ Vagas restantes: 4</span>
+                        </div>
+                    </div>
+                    <button class="btn-subscribe">Inscrever-se</button>
+                </div>
+            </div>
+
+            <!-- Card de Evento 3 -->
+            <div class="event-card">
+                <div class="event-header">
+                    <span class="event-tag">Workshop</span>
+                    <span class="event-date">22 Out • 09:00</span>
+                </div>
+                <div class="event-body">
+                    <div>
+                        <h4 class="event-title">Segurança da Informação para Iniciantes</h4>
+                        <p class="event-description">Boas práticas essenciais de cibersegurança, criptografia básica e proteção de dados pessoais no dia a dia.</p>
+                        <div class="event-meta">
+                            <span>📍 Miniauditório B</span>
+                            <span>👤 Prof. Marcos Lima</span>
+                            <span>⚡ Vagas restantes: 25</span>
+                        </div>
+                    </div>
+                    <button class="btn-subscribe">Inscrever-se</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer>
+        <p>&copy; 2026 Escola Técnica Estadual • Sistema de Gestão de Eventos (SGE). Todos os direitos reservados.</p>
+    </footer>
+
+</body>
+</html>
